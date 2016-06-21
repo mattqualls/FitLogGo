@@ -1,0 +1,60 @@
+﻿@model FitLogGo.Models.Session  
+
+@{
+    ViewBag.Title = "Add Session";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<form asp-controller="Sessions" asp-action="Create" method="post" class="form-horizontal" role="form">
+    <div class="form-horizontal">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="AppUserId" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="AppUserId" class="form-control" />
+                <span asp-validation-for="AppUserId" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SessionDate" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SessionDate" class="form-control" />
+                <span asp-validation-for="SessionDate" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="CaloriesBurned" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="CaloriesBurned" class="form-control" />
+                <span asp-validation-for="CaloriesBurned" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MilesTraveled" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MilesTraveled" class="form-control" />
+                <span asp-validation-for="MilesTraveled" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="MinutesWorked" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="MinutesWorked" class="form-control" />
+                <span asp-validation-for="MinutesWorked" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="SessionWeight" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="SessionWeight" class="form-control" />
+                <span asp-validation-for="SessionWeight" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
