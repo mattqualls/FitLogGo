@@ -8,6 +8,10 @@ namespace FitLogGo.Models
 {
     public class FitLogGoDbContext : DbContext
     {
+        public FitLogGoDbContext()
+        {
+        }
+
         public FitLogGoDbContext(DbContextOptions<FitLogGoDbContext> options)
       : base(options)
     { }

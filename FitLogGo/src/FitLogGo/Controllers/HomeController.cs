@@ -31,5 +31,6 @@ namespace FitLogGo.Controllers
         {
             return View();
         }
+
     }
 }
