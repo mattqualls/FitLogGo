@@ -43,9 +43,6 @@
                         };
                         chart.draw(data, options);
 
-                  
-              
-                      
                                 },
                                 error: function () {
                                     alert("Error loading data! Please try again.");
@@ -53,11 +50,58 @@
                             });
                         })
                    
-                 </script>
+        </script>
+            <!--second chart-->
+        <script type="text/javascript">
+
+            $(function () {
+                $.ajax({
+                    type: 'Get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    url: 'http://localhost:61621/api/ChartsTwo',
+                    data: '{}',
+                    success: function (chartsdata) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'Workout Number');
+                        data.addColumn('number', 'Invidual Sessions');
+                        for (var i = 0; i < chartsdata.length; i++) {
+                            data.addRow([chartsdata[i].WorkoutNumber, chartsdata[i].MinutesName]);
+                        }
+                        // Instantiate and draw our chart, passing in some options
+                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_two'));
+                        var options = {
+                            title: 'Minutes Report',
+                            legend: 'bottom',
+                            hAxis: {
+                                title: 'Cardio',
+                                format: '#',
+                            },
+                            vAxis: {
+                                minValue: 0,
+                                maxValue: 90,
+                                title: 'Total Minutes'
+                            },
+                            chartArea: {
+                                left: 100, top: 50, width: '70%', height: '50%'
+                            }
+
+                        };
+                        chart.draw(data, options);
+
+                                },
+                                error: function () {
+                                    alert("Error loading data! Please try again.");
+                                }
+                            });
+                        })
+
+        </script>
     </head>
 
 <body>
     <div id="chart_div"></div>
+    <div id="chart_div_two"></div>
    
 </body>
 </html>

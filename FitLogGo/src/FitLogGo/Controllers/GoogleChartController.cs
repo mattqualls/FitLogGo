@@ -37,6 +37,25 @@ namespace FitLogGo.Controllers
             return Json(perDayMileage);
           
         }
-       
+
+        [Route("api/ChartsTwo")]
+        [HttpGet]
+        [EnableCors("AllowAll")]
+        public JsonResult GetMinutesData()
+        {
+            IEnumerable perDayMinutes = (from ses in _context.Sessions
+
+                                         select new
+                                         {
+                                             WorkoutNumber = ses.SessionId,
+                                             MinutesName = ses.MinutesWorked
+
+                                         })
+                                           /*).OrderBy(a => a.WorkoutNumber).Take(10).ToList()*/;
+
+            return Json(perDayMinutes);
+
+        }
+
     }
 }
