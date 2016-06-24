@@ -57,5 +57,25 @@ namespace FitLogGo.Controllers
 
         }
 
+        [Route("api/ChartsThree")]
+        [HttpGet]
+        [EnableCors("AllowAll")]
+        public JsonResult GetWeightData()
+        {
+            IEnumerable perDayWeight = (from ses in _context.Sessions
+
+                                         select new
+                                         {
+                                             WorkoutNumber = ses.SessionId,
+                                             WeightName = ses.SessionWeight
+
+                                         })
+                                           /*).OrderBy(a => a.WorkoutNumber).Take(10).ToList()*/;
+
+            return Json(perDayWeight);
+
+        }
+
+
     }
 }

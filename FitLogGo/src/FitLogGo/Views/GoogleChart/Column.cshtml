@@ -1,101 +1,154 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Column";
 }
 
-<h2>Column Chart with Animation</h2>
+<h2>Column Charts</h2>
 
 <br />
-<div id="visualization" style="width:600px; height:300px">
 
-</div>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-@section Scripts{
-    <script>
-        $(document).ready(function() {
-            //Load Data Here
-            var chartData = null;
-            $.ajax({
-                url: 'http://localhost:61621/',
-                type: 'GET',
-                dataType: 'json',
-                data: '',
-                success: function (d) {
-                    chartData = d;
-                },
-                error: function () {
-                    alert('Error!');
-                }
-            }).done(function () {
-                drawChart(chartData);
-            });
-        });
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
-        function drawChart(d){
-            var chartData = d;
-            var data = null;
-            data = google.visualization.arrayToDataTable(chartData);
 
-            var view = new google.visualization.DataView(data);
-            view.setColumns([0, {
-                type: 'number',
-                label: data.getColumnLabel(0),
-                calc: function () {return 0; }
-            }, {
-                type: 'number',
-                label: data.getColumnLabel(1),
-                calc: function () {return 0; }
-            }, {
-                type: 'number',
-                label: data.getColumnLabel(2),
-                calc: function () {return 0; }
-            }, {
-                type: 'number',
-                label: data.getColumnLabel(3),
-                calc: function () {return 0; }
-            }, {
-                type: 'number',
-                label: data.getColumnLabel(4),
-                calc: function () {return 0; }
-            }, {
-                type: 'number',
-                label: data.getColumnLabel(5),
-                calc: function () {return 0; }
-            }, {
-                type: 'number',
-                label: data.getColumnLabel(6),
-                calc: function () {return 0; }
-            }]);
+<script type="text/javascript">
 
-            var chart = new google.visualization.ColumnChart(document.getElementById('visualization'));
-            var options = {
-                title: 'Miles Report',
-                legend: 'bottom',
-                hAxis: {
-                    title: 'Sessions',
-                    format: '#',
-                },
-                vAxis: {
-                    minValue: 0,
-                    maxValue: 10,
-                    title: 'Distance in Miles'
-                },
-                chartArea: {
-                    left:100, top: 50, width: '70%', height: '50%'
-                },
-                animation: {
-                    duration: 1000
-                }
-            };
+            $(function () {
+                $.ajax({
+                    type: 'Get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    url: 'http://localhost:61621/GoogleChart/Chart',
+                    data: '{}',
+                    success: function (chartsdata) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'Workout Number');
+                        data.addColumn('number', 'Miles');
+                        for (var i = 0; i < chartsdata.length; i++) {
+                            data.addRow([chartsdata[i].WorkoutNumber, chartsdata[i].MileageName]);
+                        }
+                        // Instantiate and draw our chart, passing in some options
+                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
+                        var options = {
+                            title: 'Miles Report',
+                            legend: 'top',
+                            hAxis: {
+                                title: 'Sessions',
+                                format: '#',
+                            },
+                            vAxis: {
+                                minValue: 0,
+                                maxValue: 10,
+                                title: 'Distance in Miles'
+                            },
+                            chartArea: {
+                                left: 100, top: 50, width: '70%', height: '50%'
+                            }
 
-            var runFirstTime = google.visualization.events.addListener(chart, 'ready', function () {
-                google.visualization.events.removeListener(runFirstTime);
-                chart.draw(data, options);
-            });
+                        };
+                        chart.draw(data, options);
 
-            chart.draw(view, options);
-        }
-        google.load('visualization', '1', { packages: ['corechart'] });
-    </script>
-}
+                                },
+                                error: function () {
+                                    alert("Error loading data! Please try again.");
+                                }
+                            });
+                        })
+
+</script>
+<!--second chart-->
+<script type="text/javascript">
+
+            $(function () {
+                $.ajax({
+                    type: 'Get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    url: 'http://localhost:61621/api/ChartsTwo',
+                    data: '{}',
+                    success: function (chartsdata) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'Workout Number');
+                        data.addColumn('number', 'Minutes');
+                        for (var i = 0; i < chartsdata.length; i++) {
+                            data.addRow([chartsdata[i].WorkoutNumber, chartsdata[i].MinutesName]);
+                        }
+                        // Instantiate and draw our chart, passing in some options
+                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_two'));
+                        var options = {
+                            title: 'Minutes Report',
+                            legend: 'top',
+                            hAxis: {
+                                title: 'Sessions',
+                                format: '#',
+                            },
+                            vAxis: {
+                                minValue: 0,
+                                maxValue: 90,
+                                title: 'Total Minutes'
+                            },
+                            chartArea: {
+                                left: 100, top: 50, width: '70%', height: '50%'
+                            }
+
+                        };
+                        chart.draw(data, options);
+
+                                },
+                                error: function () {
+                                    alert("Error loading data! Please try again.");
+                                }
+                            });
+                        })
+
+</script>
+<!--Third Chart-->
+<script type="text/javascript">
+
+            $(function () {
+                $.ajax({
+                    type: 'Get',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    url: 'http://localhost:61621/api/ChartsThree',
+                    data: '{}',
+                    success: function (chartsdata) {
+                        var data = new google.visualization.DataTable();
+                        data.addColumn('number', 'Workout Number');
+                        data.addColumn('number', 'Current Weight');
+                        for (var i = 0; i < chartsdata.length; i++) {
+                            data.addRow([chartsdata[i].WorkoutNumber, chartsdata[i].WeightName]);
+                        }
+                        // Instantiate and draw our chart, passing in some options
+                        var chart = new google.visualization.ColumnChart(document.getElementById('chart_div_three'));
+                        var options = {
+                            title: 'Weight Report',
+                            legend: 'top',
+                            hAxis: {
+                                title: 'Sessions',
+                                format: '#',
+                            },
+                            vAxis: {
+                                minValue: 155,
+                                maxValue: 185,
+                                title: 'Current Weight'
+                            },
+                            chartArea: {
+                                left: 100, top: 50, width: '70%', height: '50%'
+                            }
+
+                        };
+                        chart.draw(data, options);
+
+                                },
+                                error: function () {
+                                    alert("Error loading data! Please try again.");
+                                }
+                            });
+                        })
+
+</script>
+
+<div id="chart_div"></div>
+<div id="chart_div_two"></div>
+<div id="chart_div_three"></div>
